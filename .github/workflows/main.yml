@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.8'
 
@@ -22,6 +22,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
+    - name: Install unzip
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y unzip
+
+    - name: Install AWS CLI
+      run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
 
     - name: Run training script
       run: |
