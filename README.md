@@ -1,63 +1,78 @@
-# CI/CD Setup Exercise for Iris Classification Model
+# Iris Prediction Model with CI/CD Pipeline
 
-This repository contains an exercise to set up Continuous Integration and Continuous Deployment (CI/CD) for a simple classification model using the Iris dataset. The project includes a Jupyter Notebook, Python scripts, and a configuration for GitHub Actions to automate the CI/CD pipeline.
+This repository contains an Iris prediction model with a complete CI/CD pipeline setup using GitHub Actions, AWS S3, and a simple Flask application.
 
 ## Project Structure
 
+├── .github
+│ └── workflows
+│ └── main.yml
 ├── iris3.csv
 ├── Iris.ipynb
 ├── train_model.py
 ├── requirements.txt
 ├── README.md
-└── .github
-└── workflows
-└── main.yml
+├── index.html
+├── script.js
+├── app.py
+└── model.pkl
+
+bash
 
 
-### Files Description
+## Setup Instructions
 
-- `iris3.csv`: The dataset file containing the Iris data.
-- `Iris.ipynb`: Jupyter Notebook for data exploration and initial model training.
-- `train_model.py`: Python script for training the Random Forest model and saving it as `model.pkl`.
-- `requirements.txt`: List of dependencies required for the project.
-- `README.md`: This file, explaining the project and CI/CD setup.
-- `.github/workflows/main.yml`: GitHub Actions workflow file for automating CI/CD.
+### 1. Clone the Repository
+```sh
+git clone https://github.com/Ricpatrocinio/iris.git
+cd iris
+2. Install Dependencies
+Ensure you have Python and pip installed.
 
-## CI/CD Pipeline Setup
+sh
 
-### Step 1: Organize the Project Repository
+pip install -r requirements.txt
+3. Train the Model
+Run the training script to generate the model.
 
-1. **Create a GitHub Repository**: Create a new repository on GitHub.
-2. **Add Files**: Add the project files (`iris3.csv`, `Iris.ipynb`, `train_model.py`, `requirements.txt`, and README.md) to the repository.
+sh
 
-### Step 2: Convert Notebook to Script
+python train_model.py
+4. Run the Flask App
+Start the Flask application.
 
-The `train_model.py` script includes:
-- Loading the dataset
-- Preprocessing
-- Model training
-- Model saving
+sh
 
-### Step 3: Create `requirements.txt`
+python app.py
+5. Front-End Setup
+Open index.html in a web browser to interact with the model.
 
-List of dependencies:
+CI/CD Pipeline
+GitHub Actions Workflow
+The CI/CD pipeline is set up using GitHub Actions. It includes the following steps:
 
-pandas
-scikit-learn
-joblib
+Checkout code
+Set up Python environment
+Install dependencies
+Install AWS CLI
+Run training script
+Deploy model to AWS S3
+Run Flask app
+AWS S3 Bucket
+The model is uploaded to an S3 bucket named iris-model-bucket in the us-east-2 region. Ensure you have set up your AWS credentials as GitHub secrets:
 
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+Workflow File: .github/workflows/main.yml
+yaml
 
-### Step 4: GitHub Actions for CI/CD
+Triggering the Workflow
+Push changes to the main branch to trigger the workflow:
 
-Create the GitHub Actions workflow file at `.github/workflows/main.yml`.
+sh
 
-Step 5: AWS Setup
-Create an S3 Bucket: Create an S3 bucket to store your model file.
-Configure AWS CLI: Ensure AWS CLI is configured with the necessary permissions.
-Step 6: CI/CD Execution
-Push Code Changes: Commit and push your code to the GitHub repository.
-Trigger Workflow: The GitHub Actions workflow will automatically run, training your model and deploying it to AWS S3.
-Step 7: Monitor and Maintain
-Monitor Workflow: Check the GitHub Actions tab in your repository to monitor the CI/CD process.
-Update as Needed: Make necessary updates to your pipeline as your project evolves.
-
+git add .
+git commit -m "Trigger CI/CD pipeline"
+git push origin main
+Monitoring Workflow
+Monitor the GitHub Actions tab to ensure the workflow runs successfully.Trigger CI/CD pipeline
